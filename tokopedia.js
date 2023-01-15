@@ -106,7 +106,7 @@ const postToWebhook = async (data) => {
     method: 'post',
     url:  process.env.TOKOPEDIA_WEBHOOK,
     data : {
-      source: 'tokopedia',
+      source: process.env.TOKOPEDIA_SOURCE,
       data
     }
   };
