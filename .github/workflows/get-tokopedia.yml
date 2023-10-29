@@ -16,3 +16,11 @@ jobs:
         run: npm install
       - name: Get Tokopedia
         run: npm run tokopedia
+        env:
+          TOKOPEDIA_SOURCE: ${{ secrets.TOKOPEDIA_SOURCE }}
+          TOKOPEDIA_WEBHOOK: ${{ secrets.TOKOPEDIA_WEBHOOK }}
+          TOKOPEDIA_POST_TO_WEBHOOK: ${{ secrets.TOKOPEDIA_POST_TO_WEBHOOK }}
+          TOKOPEDIA_TRANSACTION_START_DATE: ${{ secrets.TOKOPEDIA_TRANSACTION_START_DATE }}
+          TOKOPEDIA_TRANSACTION_END_DATE: ${{ secrets.TOKOPEDIA_TRANSACTION_END_DATE }}
+          TOKOPEDIA_COOKIE: ${{ secrets.TOKOPEDIA_COOKIE }}
+          
