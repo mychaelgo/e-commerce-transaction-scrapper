@@ -8,7 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Create env file
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 20.x
+      - name: Install dependencies
+        run: npm install
+      - name: Get Tokopedia
         env: 
           TOKOPEDIA_SOURCE: ${{ secrets.TOKOPEDIA_SOURCE }}
           TOKOPEDIA_WEBHOOK: ${{ secrets.TOKOPEDIA_WEBHOOK }}
@@ -18,17 +24,10 @@ jobs:
           TOKOPEDIA_COOKIE: ${{ secrets.TOKOPEDIA_COOKIE }}
         run: |
           touch .env
-          echo "TOKOPEDIA_SOURCE=${{ secrets.TOKOPEDIA_SOURCE }}" >> .env
-          echo "TOKOPEDIA_WEBHOOK=${{ secrets.TOKOPEDIA_WEBHOOK }}" >> .env
-          echo "TOKOPEDIA_POST_TO_WEBHOOK=${{ secrets.TOKOPEDIA_POST_TO_WEBHOOK }}" >> .env
-          echo "TOKOPEDIA_TRANSACTION_START_DATE=${{ secrets.TOKOPEDIA_TRANSACTION_START_DATE }}" >> .env
-          echo "TOKOPEDIA_TRANSACTION_END_DATE=${{ secrets.TOKOPEDIA_TRANSACTION_END_DATE }}" >> .env
-          echo "TOKOPEDIA_COOKIE=${{ secrets.TOKOPEDIA_COOKIE }}" >> .env
-      - name: Use Node.js 20.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 20.x
-      - name: Install dependencies
-        run: npm install
-      - name: Get Tokopedia
-        run: npm run tokopedia
+          echo TOKOPEDIA_SOURCE=$TOKOPEDIA_SOURCE >> .env
+          echo TOKOPEDIA_WEBHOOK=$TOKOPEDIA_WEBHOOK >> .env
+          echo TOKOPEDIA_POST_TO_WEBHOOK=$TOKOPEDIA_POST_TO_WEBHOOK >> .env
+          echo TOKOPEDIA_TRANSACTION_START_DATE=$TOKOPEDIA_TRANSACTION_START_DATE >> .env
+          echo TOKOPEDIA_TRANSACTION_END_DATE=$TOKOPEDIA_TRANSACTION_END_DATE >> .env
+          echo TOKOPEDIA_COOKIE=$TOKOPEDIA_COOKIE >> .env
+          npm run tokopedia
