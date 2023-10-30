@@ -110,7 +110,12 @@ const postToWebhook = async (data) => {
     }
   };
 
-  return await axios(config)
+  try {
+    return await axios(config)
+  } catch (error) {
+    console.log('Error ', error.message);
+  }
+
 };
 
 function getStartAndEndOfMonth() {
@@ -147,7 +152,7 @@ function getStartAndEndOfMonth() {
       await postToWebhook(transactions);
     }
 
-    console.log({ transactions });
+    console.log(`Transactions: ${transactions.length}`);
   } else {
     console.log('No transactions');
   }
