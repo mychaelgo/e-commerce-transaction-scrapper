@@ -8,6 +8,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Create env file
+        env: 
+          TOKOPEDIA_SOURCE: ${{ secrets.TOKOPEDIA_SOURCE }}
+          TOKOPEDIA_WEBHOOK: ${{ secrets.TOKOPEDIA_WEBHOOK }}
+          TOKOPEDIA_POST_TO_WEBHOOK: ${{ secrets.TOKOPEDIA_POST_TO_WEBHOOK }}
+          TOKOPEDIA_TRANSACTION_START_DATE: ${{ secrets.TOKOPEDIA_TRANSACTION_START_DATE }}
+          TOKOPEDIA_TRANSACTION_END_DATE: ${{ secrets.TOKOPEDIA_TRANSACTION_END_DATE }}
+          TOKOPEDIA_COOKIE: ${{ secrets.TOKOPEDIA_COOKIE }}
+        run: |
+          touch .env
+          echo "TOKOPEDIA_SOURCE=${{ secrets.TOKOPEDIA_SOURCE }}" >> .env
+          echo "TOKOPEDIA_WEBHOOK=${{ secrets.TOKOPEDIA_WEBHOOK }}" >> .env
+          echo "TOKOPEDIA_POST_TO_WEBHOOK=${{ secrets.TOKOPEDIA_POST_TO_WEBHOOK }}" >> .env
+          echo "TOKOPEDIA_TRANSACTION_START_DATE=${{ secrets.TOKOPEDIA_TRANSACTION_START_DATE }}" >> .env
+          echo "TOKOPEDIA_TRANSACTION_END_DATE=${{ secrets.TOKOPEDIA_TRANSACTION_END_DATE }}" >> .env
+          echo "TOKOPEDIA_COOKIE=${{ secrets.TOKOPEDIA_COOKIE }}" >> .env
       - name: Use Node.js 20.x
         uses: actions/setup-node@v1
         with:
@@ -16,11 +32,3 @@ jobs:
         run: npm install
       - name: Get Tokopedia
         run: npm run tokopedia
-        env:
-          TOKOPEDIA_SOURCE: ${{ secrets.TOKOPEDIA_SOURCE }}
-          TOKOPEDIA_WEBHOOK: ${{ secrets.TOKOPEDIA_WEBHOOK }}
-          TOKOPEDIA_POST_TO_WEBHOOK: ${{ secrets.TOKOPEDIA_POST_TO_WEBHOOK }}
-          TOKOPEDIA_TRANSACTION_START_DATE: ${{ secrets.TOKOPEDIA_TRANSACTION_START_DATE }}
-          TOKOPEDIA_TRANSACTION_END_DATE: ${{ secrets.TOKOPEDIA_TRANSACTION_END_DATE }}
-          TOKOPEDIA_COOKIE: ${{ secrets.TOKOPEDIA_COOKIE }}
-          
